@@ -176,8 +176,8 @@ function duplicateLatex(originalElement) {
     const fontSize = originalElement.dataset.fontSize;
     
     // Les coordonnées pour la duplication sont déjà relatives au tableau
-    const x = originalElement.offsetLeft + 20;
-    const y = originalElement.offsetTop + 20;
+    const x = originalElement.offsetLeft + 250;
+    const y = originalElement.offsetTop + 35;
 
     // CORRIGÉ : Passe la taille et un flag de duplication
     return createLatexElement(latexCode, x, y, { fontSize, isDuplication: true });
