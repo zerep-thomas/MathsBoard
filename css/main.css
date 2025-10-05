@@ -108,7 +108,7 @@ body {
     top: 50%; /* Centrage vertical */
     transform: translateY(-50%); /* Ajustement fin du centrage */
     right: 15px;
-    background-color: #ffffff;
+    background-color: #FAFAFA;
     border: 1px solid #ebebeb;
     border-radius: 16px;
     padding: 10px;
