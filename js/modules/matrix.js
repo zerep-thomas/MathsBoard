@@ -125,8 +125,8 @@ function createMatrix(rows, cols, x, y, options = {}) {
 function duplicateMatrix(originalMatrix) {
     const data = JSON.parse(originalMatrix.dataset.matrix);
     const fontSize = parseFloat(originalMatrix.dataset.fontSize || '20');
-    const newX = originalMatrix.offsetLeft ;
-    const newY = originalMatrix.offsetTop;
+    const newX = originalMatrix.offsetLeft + 200;
+    const newY = originalMatrix.offsetTop + 35;
 
     return createMatrix(data.length, data[0].length, newX, newY, { data, fontSize });
 }
