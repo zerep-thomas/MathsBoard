@@ -3,41 +3,32 @@
    ========================================================= */
 .text-container {
     position: absolute;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
     padding: 8px;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: move;
     background: transparent;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    
+    transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .text-container.selected {
     border-color: #007bff;
-    background: transparent;
-    /* Supprime les poignées de redimensionnement lors de l'édition */
-}
-.text-container.is-editing.selected .resize-handle {
-    display: none;
-    background: transparent;
-}
-
-.text-container.selected {
-    border-color: #007bff;
-    /* Supprime les poignées de redimensionnement lors de l'édition */
-}
-.text-container.is-editing.selected .resize-handle {
-    display: none;
+    background-color: rgba(0, 123, 255, 0.05);
 }
 
 .text-container.is-editing {
     cursor: text;
-    background: transparent;
-    border-color: #66afe9;
-    
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: #007bff;
+}
+
+/* Les poignées de redimensionnement sont cachées en mode édition */
+.text-container.is-editing.selected .resize-handle {
+    display: none;
 }
 
 /* Style pour la zone de texte en mode édition */
@@ -50,17 +41,16 @@
     resize: none;
     background-color: transparent;
     font-family: 'Poppins', sans-serif;
-    font-size: inherit; /* Hérite la taille de la police du conteneur */
-    line-height: 1.4;
-    overflow: hidden; /* Empêche l'apparition de la barre de défilement */
+    font-size: inherit;
+    line-height: 1.5;
+    overflow: hidden;
 }
-
 
 .text-container .text-display {
-    white-space: pre-wrap; /* Conserve les sauts de ligne et les espaces */
-    word-wrap: break-word; /* Coupe les mots longs qui dépassent */
-    min-height: 1.4em; /* Hauteur minimale pour ne pas disparaître si vide */
-    padding: 0; /* Assure aucun padding interne qui pourrait causer des problèmes */
-    margin: 0; /* Assure aucune marge interne */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    min-height: 1.5em; /* Hauteur minimale basée sur line-height */
+    padding: 0;
+    margin: 0;
+    line-height: 1.5;
 }
-
