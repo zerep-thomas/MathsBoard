@@ -1,0 +1,109 @@
+/* =========================================================
+   === Conteneur de Matrice sur le Board ===
+   ========================================================= */
+.matrix-container {
+    position: absolute;
+    background-color: transparent;
+    border: 2px solid transparent;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: move;
+    transition: border-color 0.2s ease;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.matrix-container.selected {
+    border-color: #007bff;
+}
+
+
+/* =========================================================
+   === Poignées de redimensionnement ===
+   ========================================================= */
+.resize-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border: 1px solid #007bff;
+    border-radius: 2px;
+    z-index: 10;
+}
+.resize-handle.nw { top: -6px; left: -6px; cursor: nwse-resize; }
+.resize-handle.n { top: -6px; left: 50%; transform: translateX(-50%); cursor: ns-resize; }
+.resize-handle.ne { top: -6px; right: -6px; cursor: nesw-resize; }
+.resize-handle.w { top: 50%; left: -6px; transform: translateY(-50%); cursor: ew-resize; }
+.resize-handle.e { top: 50%; right: -6px; transform: translateY(-50%); cursor: ew-resize; }
+.resize-handle.sw { bottom: -6px; left: -6px; cursor: nesw-resize; }
+.resize-handle.s { bottom: -6px; left: 50%; transform: translateX(-50%); cursor: ns-resize; }
+.resize-handle.se { bottom: -6px; right: -6px; cursor: nwse-resize; }
+
+/* =========================================================
+   === Éditeur de Matrice dans la Modale ===
+   ========================================================= */
+#matrix-editor-layout {
+    display: grid;
+    grid-template-areas:
+        "grid col-controls"
+        "row-controls .";
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr auto;
+    gap: 10px;
+    align-items: stretch;
+    max-width: 100%;
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
+.matrix-grid {
+    grid-area: grid;
+    display: grid;
+    gap: 5px;
+}
+
+.matrix-grid input {
+    width: 100%;
+    text-align: center;
+    border: 1px solid #ced4da;
+    padding: 8px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    min-width: 50px;
+}
+
+.matrix-row-controls {
+    grid-area: row-controls;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+
+.matrix-col-controls {
+    grid-area: col-controls;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 5px;
+}
+
+.matrix-op-btn {
+    background-color: #f1f3f5;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #495057;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    align-self: stretch; /* Fait en sorte que les boutons prennent toute la hauteur/largeur */
+}
+
+.matrix-op-btn:hover {
+    background-color: #e9ecef;
+}

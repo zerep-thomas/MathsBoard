@@ -1,0 +1,33 @@
+/* =========================================================
+   === Conteneur LaTeX sur le Board ===
+   ========================================================= */
+.latex-container {
+    position: absolute;
+    background-color: transparent;
+    border: 2px solid transparent;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: move;
+    transition: border-color 0.2s ease;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.latex-container.selected {
+    border-color: #007bff;
+}
+
+/* =========================================================
+   === Modale de création/édition LaTeX ===
+   ========================================================= */
+#latex-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-family: 'Courier New', Courier, monospace; /* Police à chasse fixe pour le code */
+    font-size: 14px;
+    resize: vertical; /* Permet de redimensionner verticalement */
+}

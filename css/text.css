@@ -1,0 +1,66 @@
+/* =========================================================
+   === Conteneur Texte sur le Board ===
+   ========================================================= */
+.text-container {
+    position: absolute;
+    border: 1px solid transparent;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: move;
+    background: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+}
+
+.text-container.selected {
+    border-color: #007bff;
+    background: transparent;
+    /* Supprime les poignées de redimensionnement lors de l'édition */
+}
+.text-container.is-editing.selected .resize-handle {
+    display: none;
+    background: transparent;
+}
+
+.text-container.selected {
+    border-color: #007bff;
+    /* Supprime les poignées de redimensionnement lors de l'édition */
+}
+.text-container.is-editing.selected .resize-handle {
+    display: none;
+}
+
+.text-container.is-editing {
+    cursor: text;
+    background: transparent;
+    border-color: #66afe9;
+    
+}
+
+/* Style pour la zone de texte en mode édition */
+.text-container textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    resize: none;
+    background-color: transparent;
+    font-family: 'Poppins', sans-serif;
+    font-size: inherit; /* Hérite la taille de la police du conteneur */
+    line-height: 1.4;
+    overflow: hidden; /* Empêche l'apparition de la barre de défilement */
+}
+
+
+.text-container .text-display {
+    white-space: pre-wrap; /* Conserve les sauts de ligne et les espaces */
+    word-wrap: break-word; /* Coupe les mots longs qui dépassent */
+    min-height: 1.4em; /* Hauteur minimale pour ne pas disparaître si vide */
+    padding: 0; /* Assure aucun padding interne qui pourrait causer des problèmes */
+    margin: 0; /* Assure aucune marge interne */
+}
+

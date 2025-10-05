@@ -1,0 +1,315 @@
+/* =========================================================
+   === Réinitialisation et Thème Général ===
+   ========================================================= */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    overflow: hidden; /* Empêche le scroll sur la page principale */
+}
+
+/* =========================================================
+   === Structure Principale ===
+   ========================================================= */
+body {
+    display: flex;
+    padding: 15px;
+    gap: 15px;
+}
+
+.icon {
+    width: 15px;
+    margin-left: 8px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+/* =========================================================
+   === Effet Confettis Plein Écran ===
+   ========================================================= */
+#confetti-canvas {
+    position: fixed; /* Reste en place même si la page défile */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1001; /* Doit être au-dessus de tout le reste */
+    
+    /* LA RÈGLE LA PLUS IMPORTANTE : */
+    /* Rend le canvas "transparent" aux clics de souris, 
+       pour pouvoir interagir avec le tableau en dessous. */
+    pointer-events: none; 
+}
+
+/* =========================================================
+   === Barre d’Outils (Toolbar) ===
+   ========================================================= */
+#toolbar {
+    width: 200px;
+    flex-shrink: 0;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#tool-search-container {
+    margin-bottom: 10px; /* Espace entre la recherche et les outils */
+}
+
+#tool-search-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#tool-search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+/* --- Fin de l'ajout --- */
+
+.tool {
+    padding: 12px 15px;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    cursor: grab;
+    text-align: center;
+    font-weight: 500;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tool:hover {
+    background-color: #e9ecef;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* =========================================================
+   === Barre d’Outils (Toolbar) - Gauche ===
+   ========================================================= */
+#toolbar {
+    width: 200px;
+    flex-shrink: 0;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+/* =========================================================
+   === Barre d'Opérations (Droite) ===
+   ========================================================= */
+#operations-toolbar {
+    width: 60px; /* Plus compacte */
+    flex-shrink: 0;
+    top: 0;
+    right: 0;
+    height: 35vh;
+    bottom: 0;
+    background: transparent;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centre les opérations verticalement */
+    margin : auto 0; /* Centre horizontalement */
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 10px;
+    position: absolute;
+    height: 35vh;
+    bottom: 0;
+    background: transparent;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;        
+    gap:10px ;
+    z-index: 200;
+
+}
+
+
+
+.op-tool {
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 8px; /* Bords arrondis comme sur le schéma */
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 500;
+    color: #333;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.op-tool:hover {
+    background-color: #e9ecef;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+
+/* =========================================================
+   === Zone de Travail (Board) ===
+   ========================================================= */
+#board {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #f4f7fa;
+    background-image: radial-gradient(#d0d5dd 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* =========================================================
+   === Rectangle de Sélection ===
+   ========================================================= */
+#selection-rectangle {
+    position: absolute;
+    border: 1px solid #007bff;
+    background-color: rgba(0, 123, 255, 0.2);
+    display: none;
+    z-index: 999;
+}
+
+/* =========================================================
+   === Bouton pour copier le LaTeX sélectionné ===
+   ========================================================= */
+#copy-latex-btn {
+    position: absolute;
+    top: 15px;
+    right: 10px; /* Espace pour la barre d'opérations */
+    z-index: 201; /* Au-dessus des autres éléments */
+    padding: 8px 12px;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+
+#copy-latex-btn.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+}
+
+/* =========================================================
+   === Fenêtres Modales (Style Générique) ===
+   ========================================================= */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.is-visible {
+    display: flex;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 25px 30px;
+    border: none;
+    width: 90%;
+    max-width: 450px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-content h2 {
+    margin: 0;
+    font-weight: 500;
+    color: #343a40;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+}
+
+.modal-content label {
+    font-weight: 500;
+}
+
+.modal-content input[type="number"],
+.modal-content input[type="text"] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    align-self: flex-end;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.modal-content input[type="number"],
+.modal-content input[type="text"],
+.modal-content textarea { /* <-- ADD TEXTAREA TO THIS SELECTOR */
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF--8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maths Board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- KaTeX pour le rendu LaTeX -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+      onload="document.body.dispatchEvent(new Event('katex-loaded'))"
+    ></script>
+
+    <!-- Fichiers de style -->
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/matrix.css" />
+    <link rel="stylesheet" href="css/ai.css" />
+    <link rel="stylesheet" href="css/latex.css" />
+    <link rel="stylesheet" href="css/text.css" />
+
+    <!-- Markdown-it pour la réponse de l'IA -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js"></script>
+  </head>
+  <body>
+    <canvas id="confetti-canvas"></canvas>
+    <!-- Barre d'outils -->
+    <div id="toolbar">
+      <div id="tool-search-container">
+        <input
+          type="text"
+          id="tool-search-input"
+          placeholder="Rechercher un outil..."
+        />
+      </div>
+
+      <div class="tool" draggable="true" data-tool-type="text">
+        Texte<img src="img/text.png" alt="Matrice" class="icon" />
+      </div>
+
+      <div class="tool" draggable="true" data-tool-type="latex">
+        LaTeX<img src="img/pi.png" alt="Matrice" class="icon" />
+      </div>
+      <div class="tool" draggable="true" data-tool-type="matrix">
+        Matrice<img src="img/matrix.png" alt="Matrice" class="icon" />
+      </div>
+    </div>
+
+    <!-- Zone de travail principale -->
+    <div id="board">
+      <div id="selection-rectangle"></div>
+
+      <!-- Bouton pour copier le LaTeX sélectionné -->
+      <button id="copy-latex-btn" class="hidden">Copier le LaTeX</button>
+
+      <!-- La barre d'opérations est MAINTENANT À L'INTÉRIEUR du board -->
+      <div id="operations-toolbar">
+        <div
+          class="op-tool"
+          draggable="true"
+          data-tool-type="latex"
+          data-latex-content="+"
+        >
+          +
+        </div>
+        <div
+          class="op-tool"
+          draggable="true"
+          data-tool-type="latex"
+          data-latex-content="-"
+        >
+          -
+        </div>
+        <div
+          class="op-tool"
+          draggable="true"
+          data-tool-type="latex"
+          data-latex-content="\div"
+        >
+          &divide;
+        </div>
+        <div
+          class="op-tool"
+          draggable="true"
+          data-tool-type="latex"
+          data-latex-content="\times"
+        >
+          &times;
+        </div>
+      </div>
+    </div>
+
+    <!-- ================== MODALES ================== -->
+
+    <!-- Modale Matrice (Création) -->
+    <div id="matrix-create-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Paramètres de la Matrice</h2>
+        <label for="rows">Lignes :</label>
+        <input type="number" id="rows" min="1" value="2" />
+        <label for="cols">Colonnes :</label>
+        <input type="number" id="cols" min="1" value="2" />
+        <button id="create-matrix-btn">Créer</button>
+      </div>
+    </div>
+
+    <!-- Modale Matrice (Édition) -->
+    <div id="matrix-edit-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Éditer la Matrice</h2>
+        <div id="matrix-editor-layout"></div>
+        <button id="save-matrix-changes-btn">Enregistrer</button>
+      </div>
+    </div>
+
+    <!-- NOUVELLE MODALE : LaTeX Libre (Création/Édition) -->
+    <div id="latex-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2 id="latex-modal-title">Créer une Expression LaTeX</h2>
+        <label for="latex-input">Code LaTeX :</label>
+        <textarea
+          id="latex-input"
+          rows="6"
+          placeholder="Ex: f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}}"
+        ></textarea>
+        <button id="save-latex-btn">Créer</button>
+      </div>
+    </div>
+
+    <!-- Modale IA (Prompt) -->
+    <div id="ai-prompt-bar">
+      <form id="ai-form">
+        <input
+          type="text"
+          id="ai-input"
+          placeholder="Posez une question..."
+          autocomplete="off"
+        />
+        <button type="submit">Envoyer</button>
+      </form>
+    </div>
+
+    <!-- Modale IA (Réponse) -->
+    <div id="ai-response-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Réponse de l'IA</h2>
+        <div id="ai-response-content"></div>
+      </div>
+    </div>
+
+    <!-- Point d'entrée de l'application JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="js/main.js" type="module"></script>
+  </body>
+</html>
