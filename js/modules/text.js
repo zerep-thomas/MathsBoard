@@ -246,8 +246,8 @@ function duplicateText(originalElement) {
     const boardRect = boardElement.getBoundingClientRect();
     const originalRect = originalElement.getBoundingClientRect();
 
-    const x = (originalRect.left - boardRect.left) + 20 + (originalRect.width / 2);
-    const y = (originalRect.top - boardRect.top) + 20 + (originalRect.height / 2);
+    const x = (originalRect.left - boardRect.left) + 200 + (originalRect.width / 2);
+    const y = (originalRect.top - boardRect.top) + 35 + (originalRect.height / 2);
 
     return createTextElement(text, x, y, { fontSize });
 }
